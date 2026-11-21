@@ -184,7 +184,11 @@ with tab1:
 
         if run_eval:
             with st.spinner("Scoring against 5-point Evaluation Rubric..."):
-                st.session_state["score"] = evaluate_output(notes_text, eval_input_str, meta["version"], meta["latency_s"])
+                try:
+                    st.session_state["score"] = evaluate_output(notes_text, eval_input_str, meta["version"], meta["latency_s"])
+                except Exception:
+                    st.session_state.pop("score", None)
+                    st.warning("Rubric evaluation paused briefly due to Groq free-tier rate limit—your Study Pack is ready below!")
         else:
             st.session_state.pop("score", None)
 

@@ -67,9 +67,13 @@ def _call_structured(
                 continue
             raise
         except APIStatusError as e:
-            if e.status_code in (413, 429) and attempt < 2:
-                time.sleep(15)  # Wait for TPM window to reset
-                continue
+            if e.status_code in (413, 429):
+                if model == "openai/gpt-oss-120b":
+                    model = "openai/gpt-oss-20b"  # Auto-fallback to 20B if 120B hits limit
+                    continue
+                if attempt < 2:
+                    time.sleep(15)
+                    continue
             raise
 
 

@@ -1,0 +1,5 @@
+Read the following lecture notes and turn them into a study pack.
+Include a summary, key terms, and some practice questions with answers.
+
+Lecture Notes:
+{notes}
